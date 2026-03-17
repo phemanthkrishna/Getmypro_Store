@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Nunito', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+  background-color: #F3F4F6;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #1A5FB8, #F47820);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient button/bg utility */
+.gradient-bg {
+  background: linear-gradient(135deg, #1A5FB8, #F47820);
+}
+
+/* Pulsing orange border for new order card */
+@keyframes pulse-border {
+  0%, 100% {
+    border-color: #F47820;
+    box-shadow: 0 0 0 0 rgba(244, 120, 32, 0.4);
+  }
+  50% {
+    border-color: #F47820;
+    box-shadow: 0 0 0 6px rgba(244, 120, 32, 0);
+  }
+}
+
+.pulse-border {
+  border: 2px solid #F47820;
+  animation: pulse-border 1.8s ease-in-out infinite;
+}
+
+/* Screen fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Bounce in for checkmark */
+@keyframes bounceIn {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.2); opacity: 1; }
+  80%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.bounce-in {
+  animation: bounceIn 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Shake for wrong OTP */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%  { transform: translateX(-8px); }
+  30%  { transform: translateX(8px); }
+  45%  { transform: translateX(-6px); }
+  60%  { transform: translateX(6px); }
+  75%  { transform: translateX(-4px); }
+  90%  { transform: translateX(4px); }
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Pulsing waiting circle */
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.1); opacity: 0.8; }
+}
+
+.pulse-scale {
+  animation: pulse-scale 1.5s ease-in-out infinite;
+}
+
+/* Rotating clock */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Number input — hide spinner arrows */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] { -moz-appearance: textfield; }
