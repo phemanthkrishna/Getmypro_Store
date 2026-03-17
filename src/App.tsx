@@ -124,8 +124,8 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center">
-      <div className="w-full max-w-[430px] min-h-screen bg-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-ds-bg flex justify-center">
+      <div className="w-full max-w-[430px] min-h-screen bg-ds-bg relative overflow-x-hidden">
         {screen === 'home' && (
           <HomeScreen
             orders={orders}

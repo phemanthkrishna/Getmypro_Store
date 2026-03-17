@@ -13,7 +13,7 @@ interface Props {
 
 function AppHeader() {
   return (
-    <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-100">
+    <div className="flex items-center gap-3 px-4 py-4 border-b border-ds-border bg-ds-surface">
       <img
         src="/logo.png"
         alt="GetMyPro"
@@ -26,12 +26,12 @@ function AppHeader() {
       />
       <div
         className="w-8 h-8 rounded-lg items-center justify-center text-white text-xs font-black"
-        style={{ background: 'linear-gradient(135deg, #1A5FB8, #F47820)', display: 'none' }}
+        style={{ background: 'linear-gradient(135deg, #4338CA, #6366F1)', display: 'none' }}
       >
         G
       </div>
       <span className="text-xl font-black gradient-text">GetMyPro</span>
-      <span className="ml-auto bg-orange-brand text-white text-sm font-bold px-3 py-1 rounded-full">
+      <span className="ml-auto bg-ds-brand/15 text-ds-brand-light text-sm font-bold px-3 py-1 rounded-full">
         Store Partner
       </span>
     </div>
@@ -45,27 +45,26 @@ export default function HomeScreen({ orders, onViewOrder, onAddRandomOrder, onGo
   const completedOrders = orders.filter((o) => o.status === 'completed');
   const readyOrders = orders.filter((o) => o.status === 'payment-received');
 
-  // Earnings — all completed orders count as today in the demo
   const todayEarnings = completedOrders.reduce((sum, os) => sum + calcTotal(os), 0);
-  const totalEarnings = todayEarnings; // same in demo; extend with historical data in real app
+  const totalEarnings = todayEarnings;
 
   return (
-    <div className="fade-in flex flex-col min-h-screen pb-20">
+    <div className="fade-in flex flex-col min-h-screen pb-20 bg-ds-bg">
       <AppHeader />
 
-      {/* Store info + Add Demo Order button */}
+      {/* Store info + Add Demo Order */}
       <div className="px-4 pt-5 pb-3 flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-[26px] font-black text-gray-900">{STORE.name}</h1>
-          <div className="flex items-center gap-1 text-gray-500 mt-1 text-base">
-            <MapPin size={15} className="text-orange-brand flex-shrink-0" />
+          <h1 className="text-[26px] font-black text-ds-text">{STORE.name}</h1>
+          <div className="flex items-center gap-1 text-ds-muted mt-1 text-sm">
+            <MapPin size={15} className="text-ds-brand flex-shrink-0" />
             <span>{STORE.location}</span>
           </div>
         </div>
         <button
           onClick={onAddRandomOrder}
           title="Add demo order"
-          className="flex-shrink-0 flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-600 font-black text-sm px-3 py-2 rounded-xl min-h-[40px] transition-colors mt-1"
+          className="flex-shrink-0 flex items-center gap-1.5 bg-ds-surface hover:bg-ds-border/50 active:opacity-70 text-ds-muted font-black text-sm px-3 py-2 rounded-xl min-h-[40px] border border-ds-border transition-all mt-1"
         >
           <Plus size={16} />
           Demo Order
@@ -73,36 +72,32 @@ export default function HomeScreen({ orders, onViewOrder, onAddRandomOrder, onGo
       </div>
 
       {/* Earnings card */}
-      <div className="mx-4 mb-3 rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #1A5FB8, #F47820)' }}>
+      <div className="mx-4 mb-3 rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #4338CA, #6366F1)' }}>
         <div className="px-4 py-3 flex items-center gap-2">
           <TrendingUp size={18} className="text-white opacity-80" />
-          <span className="text-white font-black text-sm opacity-90 uppercase tracking-wide">Earnings</span>
+          <span className="text-white font-black text-xs opacity-90 uppercase tracking-widest">Earnings</span>
         </div>
-        <div className="bg-white bg-opacity-10 mx-3 mb-3 rounded-xl px-4 py-3 flex gap-0">
+        <div className="bg-white bg-opacity-10 mx-3 mb-3 rounded-xl px-4 py-3 flex">
           <div className="flex-1 text-center border-r border-white border-opacity-20 pr-4">
-            <p className="text-white text-sm font-bold opacity-75 mb-0.5">Today</p>
-            <p className="text-white text-2xl font-black">
-              ₹{todayEarnings.toLocaleString('en-IN')}
-            </p>
+            <p className="text-white text-xs font-bold opacity-75 mb-0.5">Today</p>
+            <p className="text-white text-2xl font-black">₹{todayEarnings.toLocaleString('en-IN')}</p>
           </div>
           <div className="flex-1 text-center pl-4">
-            <p className="text-white text-sm font-bold opacity-75 mb-0.5">Total</p>
-            <p className="text-white text-2xl font-black">
-              ₹{totalEarnings.toLocaleString('en-IN')}
-            </p>
+            <p className="text-white text-xs font-bold opacity-75 mb-0.5">Total</p>
+            <p className="text-white text-2xl font-black">₹{totalEarnings.toLocaleString('en-IN')}</p>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-gray-200 mx-4" />
+      <div className="border-t border-ds-border mx-4" />
 
-      {/* Alert for ready-to-deliver orders */}
+      {/* Alert: ready to deliver */}
       {readyOrders.length > 0 && (
-        <div className="mx-4 mt-4 bg-green-50 border border-green-200 rounded-2xl px-4 py-3">
-          <p className="text-base font-black text-green-700">
+        <div className="mx-4 mt-4 bg-ds-success/10 border border-ds-success/25 rounded-2xl px-4 py-3">
+          <p className="text-sm font-black text-ds-success">
             📦 {readyOrders.length} order{readyOrders.length > 1 ? 's' : ''} paid — ready to deliver!
           </p>
-          <button onClick={onGoToOrdersList} className="text-sm font-bold text-green-600 underline mt-0.5">
+          <button onClick={onGoToOrdersList} className="text-xs font-bold text-ds-success underline mt-0.5 opacity-80">
             View in All Orders →
           </button>
         </div>
@@ -113,33 +108,33 @@ export default function HomeScreen({ orders, onViewOrder, onAddRandomOrder, onGo
         {newOrders.length > 0 ? (
           <>
             <div className="flex items-center gap-2">
-              <Bell size={20} className="text-orange-brand" />
-              <span className="text-base font-black text-orange-brand uppercase tracking-wide">
+              <Bell size={18} className="text-orange-brand" />
+              <span className="text-sm font-black text-orange-brand uppercase tracking-widest">
                 New Orders ({newOrders.length})
               </span>
             </div>
 
             {newOrders.map((os) => (
-              <div key={os.order.id} className="pulse-border rounded-2xl p-5 bg-white shadow-sm">
+              <div key={os.order.id} className="pulse-border rounded-2xl p-5 bg-ds-surface">
                 <div className="mb-3">
-                  <p className="text-[20px] font-black text-gray-900">Order #{os.order.id}</p>
-                  <p className="text-base font-bold text-gray-700 mt-0.5">
+                  <p className="text-[20px] font-black text-ds-text">Order #{os.order.id}</p>
+                  <p className="text-sm font-bold text-ds-muted mt-0.5">
                     {os.order.workerName}'s Job — {os.order.jobType} work
                   </p>
-                  <div className="flex items-start gap-1 mt-0.5 text-gray-500 text-sm">
-                    <MapPin size={13} className="mt-0.5 flex-shrink-0 text-gray-400" />
+                  <div className="flex items-start gap-1 mt-0.5 text-ds-muted text-xs">
+                    <MapPin size={12} className="mt-0.5 flex-shrink-0" />
                     <span>{os.order.jobAddress}</span>
                   </div>
                 </div>
 
-                <div className="border-t border-gray-100 pt-3 mb-4">
-                  <p className="text-xs font-black uppercase tracking-wide text-gray-400 mb-1.5">
+                <div className="border-t border-ds-border pt-3 mb-4">
+                  <p className="text-xs font-black uppercase tracking-widest text-ds-muted mb-1.5">
                     Materials Needed
                   </p>
-                  <ul className="space-y-1">
+                  <ul className="space-y-1.5">
                     {os.order.materials.map((m) => (
-                      <li key={m.name} className="text-base text-gray-800 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-orange-brand flex-shrink-0" />
+                      <li key={m.name} className="text-sm text-ds-text flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-ds-brand flex-shrink-0" />
                         {m.name} — {m.qty} {m.unit}
                       </li>
                     ))}
@@ -148,8 +143,8 @@ export default function HomeScreen({ orders, onViewOrder, onAddRandomOrder, onGo
 
                 <button
                   onClick={() => onViewOrder(os.order.id)}
-                  className="w-full text-white font-black text-lg rounded-2xl py-4 min-h-[52px] active:opacity-80"
-                  style={{ background: 'linear-gradient(135deg, #1A5FB8, #F47820)' }}
+                  className="w-full text-white font-black text-base rounded-2xl py-4 min-h-[52px] active:opacity-80 transition-opacity"
+                  style={{ background: 'linear-gradient(135deg, #4338CA, #6366F1)' }}
                 >
                   VIEW ORDER →
                 </button>
@@ -158,18 +153,18 @@ export default function HomeScreen({ orders, onViewOrder, onAddRandomOrder, onGo
           </>
         ) : (
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-5">
-              <Bell size={36} className="text-gray-300" />
+            <div className="w-20 h-20 rounded-full bg-ds-surface flex items-center justify-center mb-5 border border-ds-border">
+              <Bell size={32} className="text-ds-border" />
             </div>
-            <p className="text-[20px] font-black text-gray-400 mb-2">No new orders right now</p>
-            <p className="text-base text-gray-400 max-w-xs">
+            <p className="text-[18px] font-black text-ds-muted mb-2">No new orders right now</p>
+            <p className="text-sm text-ds-muted max-w-xs opacity-70">
               New orders will appear here automatically
             </p>
             <button
               onClick={onAddRandomOrder}
-              className="mt-6 flex items-center gap-2 bg-gray-100 text-gray-600 font-black text-base px-5 py-3 rounded-xl min-h-[48px] active:bg-gray-200"
+              className="mt-6 flex items-center gap-2 bg-ds-surface text-ds-muted font-black text-sm px-5 py-3 rounded-xl min-h-[48px] border border-ds-border active:opacity-70 transition-opacity"
             >
-              <Plus size={18} />
+              <Plus size={16} />
               Add Demo Order
             </button>
           </div>
@@ -177,17 +172,17 @@ export default function HomeScreen({ orders, onViewOrder, onAddRandomOrder, onGo
 
         {/* Completed today */}
         {completedOrders.length > 0 && (
-          <div className="mt-4 bg-green-50 rounded-2xl px-5 py-4">
-            <p className="text-sm font-black text-green-700 uppercase tracking-wide mb-2">
+          <div className="mt-4 bg-ds-success/10 border border-ds-success/20 rounded-2xl px-5 py-4">
+            <p className="text-xs font-black text-ds-success uppercase tracking-widest mb-2">
               Completed Today
             </p>
             {completedOrders.map((os) => (
               <div key={os.order.id} className="flex items-center justify-between py-0.5">
-                <div className="flex items-center gap-2 text-base text-green-700 font-bold">
-                  <CheckCircle size={16} />
+                <div className="flex items-center gap-2 text-sm text-ds-success font-bold">
+                  <CheckCircle size={14} />
                   Order #{os.order.id}
                 </div>
-                <span className="text-base font-black text-green-800">
+                <span className="text-sm font-black text-ds-success">
                   ₹{calcTotal(os).toLocaleString('en-IN')}
                 </span>
               </div>
@@ -197,9 +192,9 @@ export default function HomeScreen({ orders, onViewOrder, onAddRandomOrder, onGo
       </div>
 
       {/* Connected strip */}
-      <div className="border-t border-gray-100 px-4 py-3 flex items-center gap-2 mb-14">
-        <div className="w-2.5 h-2.5 rounded-full bg-green-brand" />
-        <span className="text-base text-gray-500 font-bold">Connected to GetMyPro</span>
+      <div className="border-t border-ds-border px-4 py-3 flex items-center gap-2 mb-14">
+        <div className="w-2 h-2 rounded-full bg-ds-success" />
+        <span className="text-xs text-ds-muted font-bold">Connected to GetMyPro</span>
       </div>
 
       <BottomNav active="home" onHome={() => {}} onOrders={onGoToOrdersList} onPayments={onGoToPayments} />

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { toast } from 'sonner';
-import { CheckCircle2, ArrowLeft } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import { Order } from '../data/demoData';
 
 interface Props {
@@ -60,35 +60,34 @@ export default function OTPScreen({ order, total, onComplete }: Props) {
 
   if (success) {
     return (
-      <div className="fade-in flex flex-col items-center justify-center min-h-screen bg-white px-6 text-center">
+      <div className="fade-in flex flex-col items-center justify-center min-h-screen bg-ds-bg px-6 text-center">
         <div className="bounce-in mb-5">
-          <CheckCircle2 size={96} className="text-green-brand" strokeWidth={1.5} />
+          <CheckCircle2 size={96} className="text-ds-success" strokeWidth={1.5} />
         </div>
-        <h2 className="text-[32px] font-black text-gray-900 mb-3">✅ Material Supplied!</h2>
-        <p className="text-xl font-bold text-gray-600 mb-2">Order #{order.id} Complete</p>
-        <div className="bg-green-50 rounded-2xl px-6 py-4 mt-2">
-          <p className="text-base font-bold text-green-700">
+        <h2 className="text-[32px] font-black text-ds-text mb-3">✅ Material Supplied!</h2>
+        <p className="text-lg font-bold text-ds-muted mb-2">Order #{order.id} Complete</p>
+        <div className="bg-ds-success/10 border border-ds-success/25 rounded-2xl px-6 py-4 mt-2">
+          <p className="text-sm font-bold text-ds-success">
             ₹{total.toLocaleString('en-IN')} will be settled to your account
           </p>
         </div>
-        <p className="text-sm text-gray-400 mt-8 italic">[Returning to home in 3 seconds...]</p>
+        <p className="text-xs text-ds-muted mt-8 italic opacity-50">[Returning to home in 3 seconds...]</p>
       </div>
     );
   }
 
   return (
-    <div className="fade-in flex flex-col min-h-screen bg-white">
+    <div className="fade-in flex flex-col min-h-screen bg-ds-bg">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-100">
-        <div className="w-10 h-10" /> {/* spacer so heading is centered-ish */}
-        <h1 className="text-xl font-black text-gray-900 flex-1 text-center pr-10">
+      <div className="flex items-center gap-3 px-4 py-4 border-b border-ds-border bg-ds-surface">
+        <div className="w-10 h-10" />
+        <h1 className="text-xl font-black text-ds-text flex-1 text-center pr-10">
           Confirm Delivery
         </h1>
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center px-6 pb-6">
-        {/* Instruction */}
-        <p className="text-[20px] font-black text-gray-900 text-center leading-snug mb-8">
+        <p className="text-[20px] font-black text-ds-text text-center leading-snug mb-8">
           Ask the worker for their<br />4-digit OTP and enter below
         </p>
 
@@ -104,30 +103,27 @@ export default function OTPScreen({ order, total, onComplete }: Props) {
               value={d}
               onChange={(e) => handleChange(i, e.target.value)}
               onKeyDown={(e) => handleKeyDown(i, e)}
-              className="w-16 h-[72px] text-center text-[32px] font-black border-2 rounded-xl focus:outline-none focus:border-blue-brand transition-colors"
+              className="w-16 h-[72px] text-center text-[32px] font-black border-2 rounded-xl focus:outline-none transition-colors"
               style={{
-                borderColor: d ? '#1A5FB8' : '#E5E7EB',
-                backgroundColor: d ? '#EFF6FF' : '#F9FAFB',
+                borderColor: d ? '#6366F1' : '#27272A',
+                backgroundColor: d ? 'rgba(99,102,241,0.12)' : '#131316',
+                color: '#FAFAFA',
               }}
             />
           ))}
         </div>
 
-        {/* Demo hint */}
-        <p className="text-sm text-gray-400 mb-10 italic">
+        <p className="text-xs text-ds-muted mb-10 italic opacity-50">
           Demo OTP: {order.compOtp}
         </p>
 
-        {/* Confirm button */}
         <button
           onClick={handleConfirm}
           disabled={!allFilled}
-          className={`w-full text-white font-black text-lg rounded-2xl py-4 min-h-[52px] transition-all ${
-            allFilled
-              ? 'active:opacity-80'
-              : 'opacity-50 cursor-not-allowed bg-gray-400'
+          className={`w-full text-white font-black text-base rounded-2xl py-4 min-h-[52px] transition-all ${
+            allFilled ? 'active:opacity-80' : 'opacity-40 cursor-not-allowed'
           }`}
-          style={allFilled ? { background: '#10B981' } : {}}
+          style={allFilled ? { backgroundColor: '#22C55E' } : { backgroundColor: '#27272A' }}
         >
           CONFIRM &amp; MARK SUPPLIED ✓
         </button>
